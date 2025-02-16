@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Storage ###
+src/main/resources/upload-dir/
+!src/main/resources/upload-dir/.gitkeep
