@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -33,5 +34,13 @@ public class GlobalExceptionHandler {
         MessageResponse<String> errorResponse = new MessageResponse<>("error", errorMessage);
 
         return new ResponseEntity<>(errorResponse, httpStatus);
+    }
+
+    @ResponseStatus(HttpStatus.REQUEST_ENTITY_TOO_LARGE)
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public MessageResponse<String> handleUploadSizeExceededException(MaxUploadSizeExceededException ex) {
+        String message = ex.getMessage();
+
+        return new MessageResponse<>("error", message);
     }
 }
